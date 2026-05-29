@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마론뉴데이CC 예약현황 (대표님 개인 회원권)</title>
+<style>
+  :root {
+    --primary: #1B6E5C;
+    --primary-light: #D9F0E8;
+    --primary-dark: #0E4A3D;
+    --accent: #C19434;
+    --accent-light: #FAF1D9;
+    --accent-dark: #8C6A20;
+    --success: #2D6E32;
+    --success-bg: #DFF0DF;
+    --danger: #B83A2F;
+    --danger-bg: #FBE3E0;
+    --warning: #B8730F;
+    --warning-bg: #FBEFD0;
+    --info: #1F608A;
+    --info-bg: #DEECF6;
+    --gold-bg: #FFF8E1;
+    --gold-border: #E5C97F;
+    --muted-bg: #E8E8E0;
+    --border: #DDD;
+    --text: #1E2D27;
+    --muted: #6B7B72;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:
+      radial-gradient(ellipse at top right, #E5F3EE 0%, transparent 60%),
+      radial-gradient(ellipse at bottom left, #FAF1D9 0%, transparent 50%),
+      #F7F8F4;
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.5;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  .container { max-width: 1180px; margin: 0 auto; }
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 60%, #073B30 100%);
+    color: white;
+    padding: 32px 36px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(14, 74, 61, 0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(193, 148, 52, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '⛳';
+    position: absolute;
+    right: 36px;
+    bottom: 16px;
+    font-size: 4rem;
+    opacity: 0.18;
+  }
+  header h1 { font-size: 1.7rem; margin-bottom: 6px; position: relative; }
+  header .meta { font-size: 0.92rem; opacity: 0.92; position: relative; }
+  .account-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: white;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(140, 106, 32, 0.3);
+  }
+  .switch-link {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 7px 16px;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    transition: background 0.2s;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.25);
+    position: relative;
+  }
+  .switch-link:hover { background: rgba(255,255,255,0.3); }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(27, 110, 92, 0.08);
+    border-top: 4px solid var(--primary);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(27, 110, 92, 0.14);
+  }
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, transparent 50%, var(--primary-light) 50%);
+    opacity: 0.5;
+  }
+  .stat-card.gold { border-top-color: var(--accent); }
+  .stat-card.gold::after { background: linear-gradient(135deg, transparent 50%, var(--accent-light) 50%); }
+  .stat-card.warning { border-top-color: var(--warning); }
+  .stat-card.warning::after { background: linear-gradient(135deg, transparent 50%, var(--warning-bg) 50%); }
+  .stat-card.danger { border-top-color: var(--danger); }
+  .stat-card.danger::after { background: linear-gradient(135deg, transparent 50%, var(--danger-bg) 50%); }
+  .stat-card .label { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; font-weight: 500; }
+  .stat-card .value { font-size: 1.9rem; font-weight: bold; color: var(--primary); position: relative; }
+  .stat-card.gold .value { color: var(--accent-dark); }
+  .stat-card.warning .value { color: var(--warning); }
+  .stat-card.danger .value { color: var(--danger); }
+  .stat-card .sub { font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
+  section {
+    background: white;
+    padding: 26px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(27, 110, 92, 0.06);
+  }
+  section h2 {
+    font-size: 1.18rem;
+    color: var(--primary-dark);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 12px;
+    font-size: 0.92rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.93rem;
+  }
+  tbody tr:nth-child(even) td { background: #FAFCFB; }
+  tr:hover td { background: var(--primary-light) !important; }
+  .badge {
+    display: inline-block;
+    padding: 4px 11px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .badge-success { background: var(--success-bg); color: var(--success); }
+  .badge-danger { background: var(--danger-bg); color: var(--danger); }
+  .badge-warning { background: var(--warning-bg); color: var(--warning); }
+  .badge-info { background: var(--info-bg); color: var(--info); }
+  .badge-gold {
+    background: linear-gradient(135deg, var(--accent-light), var(--gold-bg));
+    color: var(--accent-dark);
+    border: 1px solid var(--gold-border);
+  }
+  .note {
+    font-size: 0.86rem;
+    color: var(--muted);
+    background: linear-gradient(90deg, var(--primary-light), transparent);
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-top: 14px;
+    border-left: 3px solid var(--primary);
+  }
+  .change-note {
+    background: linear-gradient(90deg, var(--gold-bg), white);
+    color: var(--accent-dark);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    margin-bottom: 18px;
+    border-left: 4px solid var(--accent);
+    box-shadow: 0 2px 6px rgba(193, 148, 52, 0.1);
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 18px;
+  }
+  footer .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 8px auto;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🏌️ 마론뉴데이CC 예약현황 <span class="account-badge">⭐ 대표님 개인 회원권</span></h1>
+  <div class="meta">한도: 평일 4회 / 주말 2회 (월 기준) · 마지막 업데이트: <span id="updated">2026-05-28 23:35</span></div>
+  <a href="index.html" class="switch-link">→ 선용님 대시보드로 전환</a>
+</header>
+
+<div class="change-note">
+  📢 전일 대비 변동: <strong>P1·P2 → 사이트 등록 완료</strong> (6/27 11:55 DREAM · 12:02 DREAM, 단체 취소불가) · 5/29(금) 상태 "예약취소" → <strong>"취소불가"</strong>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="label">총 예약</div>
+    <div class="value">5<span style="font-size:1rem;font-weight:normal;color:var(--muted);">건</span></div>
+    <div class="sub">5월 1건 · 6월 4건 (예정 모두 실제 등록 전환)</div>
+  </div>
+  <div class="stat-card gold">
+    <div class="label">2026년 5월 잔여</div>
+    <div class="value">평일 3 / 주말 2</div>
+    <div class="sub">평일 1/4 · 주말 0/2</div>
+  </div>
+  <div class="stat-card danger">
+    <div class="label">2026년 6월 잔여</div>
+    <div class="value">평일 2 / 주말 0</div>
+    <div class="sub">평일 2/4 · 주말 2/2</div>
+  </div>
+  <div class="stat-card warning">
+    <div class="label">다음 예약</div>
+    <div class="value" style="font-size:1.3rem;">5/29 (금) 07:40</div>
+    <div class="sub">DREAM 코스 · 내일 · 취소불가</div>
+  </div>
+</div>
+
+<section>
+  <h2>📊 월별 예약 한도 (평일 4회 / 주말 2회)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>월</th>
+        <th>평일 사용</th>
+        <th>평일 잔여</th>
+        <th>주말 사용</th>
+        <th>주말 잔여</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>2026년 5월</strong></td>
+        <td>1 / 4</td>
+        <td><span class="badge badge-success">3회</span></td>
+        <td>0 / 2</td>
+        <td><span class="badge badge-success">2회</span></td>
+        <td style="text-align:left;">평일·주말 모두 여유 있음</td>
+      </tr>
+      <tr>
+        <td><strong>2026년 6월</strong></td>
+        <td>2 / 4</td>
+        <td><span class="badge badge-success">2회</span></td>
+        <td>2 / 2</td>
+        <td><span class="badge badge-danger">0회</span></td>
+        <td style="text-align:left;">주말 한도 소진 (6/27 2팀 등록 완료)</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">※ 주말 = 토·일·공휴일 기준 · 선용님 계정과 한도가 다름(평일 4 vs 7회)</div>
+</section>
+
+<section>
+  <h2>📋 예약 상세 내역</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>예약일</th>
+        <th>예약시간</th>
+        <th>코스</th>
+        <th>구분</th>
+        <th>상태</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td><td>2026.05.29 (금)</td><td>07:40</td><td>DREAM</td>
+        <td>평일</td>
+        <td><span class="badge badge-danger">취소불가 (내일)</span></td>
+      </tr>
+      <tr>
+        <td>2</td><td>2026.06.11 (목)</td><td>07:54</td><td>VISION</td>
+        <td>평일</td>
+        <td><span class="badge badge-danger">단체 취소불가</span></td>
+      </tr>
+      <tr>
+        <td>3</td><td>2026.06.19 (금)</td><td>07:26</td><td>VISION</td>
+        <td>평일</td>
+        <td><span class="badge badge-success">예약취소 가능</span></td>
+      </tr>
+      <tr>
+        <td>4</td><td>2026.06.27 (토)</td><td>11:55</td><td>DREAM</td>
+        <td><span class="badge badge-warning">주말(토)</span></td>
+        <td><span class="badge badge-danger">단체 취소불가</span></td>
+      </tr>
+      <tr>
+        <td>5</td><td>2026.06.27 (토)</td><td>12:02</td><td>DREAM</td>
+        <td><span class="badge badge-warning">주말(토)</span></td>
+        <td><span class="badge badge-danger">단체 취소불가</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">6/27(토) 2팀 + 선용님 계정 1팀(12:09) = 총 3팀 합동 예약 완료 · 예정 등록 모두 실제 등록 전환 완료 · 파일: 대표님_planned.json (비어있음)</div>
+</section>
+
+<footer>
+  마론컨트리클럽 · 프론트 041-623-5500 · 예약실 041-623-5555
+  <div class="divider"></div>
+  ⭐ 대표님 개인 회원권 계정 · 파일: 대표님_index.html · 대표님_planned.json
+</footer>
+
+</div>
+</body>
+</html>

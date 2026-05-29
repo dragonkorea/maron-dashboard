@@ -94,9 +94,7 @@
   }
   tr:hover td { background: var(--primary-light); }
   tr.played td { background: var(--muted-bg); color: var(--muted); }
-  tr.played:hover td { background: #DEDEDE; }
   tr.planned td { background: var(--info-bg); }
-  tr.planned:hover td { background: #CCDEEB; }
   .badge {
     display: inline-block;
     padding: 3px 10px;
@@ -109,10 +107,7 @@
   .badge-warning { background: var(--warning-bg); color: var(--warning); }
   .badge-muted { background: var(--muted-bg); color: var(--muted); }
   .badge-info { background: var(--info-bg); color: var(--info); }
-  .requester {
-    font-weight: 600;
-    color: var(--primary);
-  }
+  .requester { font-weight: 600; color: var(--primary); }
   .note {
     font-size: 0.85rem;
     color: var(--muted);
@@ -146,7 +141,32 @@
     border-radius: 6px;
     font-size: 0.85rem;
   }
-  .switch-link:hover { background: rgba(255,255,255,0.3); }
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .container { max-width: 100%; }
+    header { padding: 20px 18px; border-radius: 10px; }
+    header h1 { font-size: 1.2rem; line-height: 1.35; }
+    header .meta { font-size: 0.78rem; line-height: 1.4; }
+    .switch-link { padding: 5px 10px; font-size: 0.78rem; margin-top: 8px; }
+    .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-card { padding: 14px; border-radius: 10px; }
+    .stat-card .label { font-size: 0.75rem; }
+    .stat-card .value { font-size: 1.35rem !important; }
+    .stat-card .sub { font-size: 0.72rem; }
+    section { padding: 16px; border-radius: 10px; }
+    section h2 { font-size: 1rem; }
+    table { font-size: 0.82rem; }
+    th, td { padding: 7px 5px !important; font-size: 0.78rem !important; }
+    .badge { padding: 2px 7px; font-size: 0.7rem; }
+    .change-note { font-size: 0.8rem; padding: 9px 11px; }
+    .note { font-size: 0.75rem; padding: 10px 11px; }
+    .detail-table th:nth-child(4), .detail-table td:nth-child(4) { display: none; }
+  }
+  @media (max-width: 380px) {
+    .stats { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.1rem; }
+    th, td { padding: 6px 4px !important; font-size: 0.72rem !important; }
+  }
 </style>
 </head>
 <body>
@@ -154,7 +174,7 @@
 
 <header>
   <h1>🏌️ 마론뉴데이CC 예약현황 대시보드</h1>
-  <div class="meta">선용님 계정 · 한도: 평일 7회 / 주말 2회 · 마지막 업데이트: <span id="updated">2026-05-29 11:30</span></div>
+  <div class="meta">회사 계정 · 한도: 평일 7회 / 주말 2회 · 마지막 업데이트: 2026-05-29 11:30</div>
   <a href="ceo.html" class="switch-link">→ 대표님 대시보드로 전환</a>
 </header>
 
@@ -164,173 +184,88 @@
 
 <div class="stats">
   <div class="stat-card">
-    <div class="label">총 예약 (완료+예정+예정등록)</div>
+    <div class="label">총 예약</div>
     <div class="value">16<span style="font-size:1rem;font-weight:normal;">건</span></div>
-    <div class="sub">5월 8건 (완료 7, 예정 1) · 6월 8건 (예정등록 1 포함)</div>
+    <div class="sub">완료 7 · 예정 8 · 예정등록 1</div>
   </div>
   <div class="stat-card warning">
     <div class="label">2026년 5월 잔여</div>
     <div class="value">평일 1 / 주말 0</div>
-    <div class="sub">평일 사용 6/7 · 주말 사용 2/2</div>
+    <div class="sub">평일 6/7 · 주말 2/2</div>
   </div>
   <div class="stat-card danger">
     <div class="label">2026년 6월 잔여</div>
     <div class="value">평일 1 / 주말 0</div>
-    <div class="sub">평일 사용 6/7 · 주말 사용 2/2</div>
+    <div class="sub">평일 6/7 · 주말 2/2</div>
   </div>
   <div class="stat-card warning">
     <div class="label">다음 예약</div>
     <div class="value" style="font-size:1.25rem;">5/31 (일) 07:33</div>
-    <div class="sub">VISION 코스 · 모레 (D-2) · 취소불가</div>
+    <div class="sub">VISION · D-2 · 취소불가</div>
   </div>
 </div>
 
 <section>
   <h2>📊 월별 예약 한도 (평일 7회 / 주말 2회)</h2>
-  <table>
+  <table class="quota-table">
     <thead>
       <tr>
-        <th>월</th>
-        <th>평일 사용</th>
-        <th>평일 잔여</th>
-        <th>주말 사용</th>
-        <th>주말 잔여</th>
-        <th>비고</th>
+        <th>월</th><th>평일 사용</th><th>평일 잔여</th><th>주말 사용</th><th>주말 잔여</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>2026년 5월</td>
-        <td>6 / 7 <span style="color:var(--muted);font-size:0.8rem;">(완료 6)</span></td>
+        <td>6 / 7 <span style="color:var(--muted);font-size:0.78rem;">(완료 6)</span></td>
         <td><span class="badge badge-warning">1회</span></td>
-        <td>2 / 2 <span style="color:var(--muted);font-size:0.8rem;">(완료 1)</span></td>
+        <td>2 / 2 <span style="color:var(--muted);font-size:0.78rem;">(완료 1)</span></td>
         <td><span class="badge badge-danger">0회</span></td>
-        <td style="text-align:left;">평일 1회만 가능, 주말 한도 소진</td>
       </tr>
       <tr>
         <td>2026년 6월</td>
         <td>6 / 7</td>
         <td><span class="badge badge-warning">1회</span></td>
-        <td>2 / 2 <span style="color:var(--muted);font-size:0.8rem;">(등록 1, 예정등록 1)</span></td>
+        <td>2 / 2 <span style="color:var(--muted);font-size:0.78rem;">(등록 1, 예정등록 1)</span></td>
         <td><span class="badge badge-danger">0회</span></td>
-        <td style="text-align:left;">평일 1회만 가능, 주말 한도 소진</td>
       </tr>
     </tbody>
   </table>
-  <div class="note">※ 주말 = 토·일·공휴일 기준 · 사용량 = 완료 + 예정 + 예정등록</div>
+  <div class="note">※ 주말 = 토·일·공휴일 기준 · 사용량 = 완료 + 예정 + 예정등록 · 5·6월 모두 평일 1회만 가능, 주말 한도 소진</div>
 </section>
 
 <section>
   <h2>📋 예약 상세 내역</h2>
-  <table>
+  <table class="detail-table">
     <thead>
       <tr>
-        <th>No</th>
-        <th>예약일</th>
-        <th>예약시간</th>
-        <th>코스</th>
-        <th>예약자</th>
-        <th>구분</th>
-        <th>상태</th>
+        <th>No</th><th>예약일</th><th>예약시간</th><th>코스</th><th>예약자</th><th>구분</th><th>상태</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="played">
-        <td>—</td><td>2026.05.06 (수)</td><td>13:33</td><td>-</td><td>-</td>
-        <td>평일</td>
-        <td><span class="badge badge-muted">✓ 플레이 완료</span></td>
-      </tr>
-      <tr class="played">
-        <td>—</td><td>2026.05.07 (목)</td><td>07:40</td><td>-</td><td>-</td>
-        <td>평일</td>
-        <td><span class="badge badge-muted">✓ 플레이 완료</span></td>
-      </tr>
-      <tr class="played">
-        <td>—</td><td>2026.05.08 (금)</td><td>12:09</td><td>-</td><td>-</td>
-        <td>평일</td>
-        <td><span class="badge badge-muted">✓ 플레이 완료</span></td>
-      </tr>
-      <tr class="played">
-        <td>—</td><td>2026.05.16 (토)</td><td>07:33</td><td>-</td><td>-</td>
-        <td><span class="badge badge-warning">주말(토)</span></td>
-        <td><span class="badge badge-muted">✓ 플레이 완료</span></td>
-      </tr>
-      <tr class="played">
-        <td>—</td><td>2026.05.21 (목)</td><td>07:19</td><td>DREAM</td><td>-</td>
-        <td>평일</td>
-        <td><span class="badge badge-muted">✓ 플레이 완료</span></td>
-      </tr>
-      <tr class="played">
-        <td>—</td><td>2026.05.27 (수)</td><td>07:54</td><td>VISION</td><td>-</td>
-        <td>평일</td>
-        <td><span class="badge badge-muted">✓ 플레이 완료</span></td>
-      </tr>
-      <tr class="played">
-        <td>—</td><td>2026.05.28 (목)</td><td>08:01</td><td>DREAM</td><td>-</td>
-        <td>평일</td>
-        <td><span class="badge badge-muted">✓ 플레이 완료 (오늘)</span></td>
-      </tr>
-      <tr>
-        <td>1</td><td>2026.05.31 (일)</td><td>07:33</td><td>VISION</td><td>-</td>
-        <td><span class="badge badge-warning">주말(일)</span></td>
-        <td><span class="badge badge-danger">취소불가</span></td>
-      </tr>
-      <tr>
-        <td>2</td><td>2026.06.11 (목)</td><td>07:40</td><td>VISION</td>
-        <td><span class="requester">대표님</span></td>
-        <td>평일</td>
-        <td><span class="badge badge-danger">단체 취소불가</span></td>
-      </tr>
-      <tr>
-        <td>3</td><td>2026.06.11 (목)</td><td>07:47</td><td>VISION</td>
-        <td><span class="requester">대표님</span></td>
-        <td>평일</td>
-        <td><span class="badge badge-danger">단체 취소불가</span></td>
-      </tr>
-      <tr>
-        <td>4</td><td>2026.06.12 (금)</td><td>08:08</td><td>VISION</td>
-        <td><span class="requester">안준영 이사</span></td>
-        <td>평일</td>
-        <td><span class="badge badge-success">예약취소 가능</span></td>
-      </tr>
-      <tr>
-        <td>5</td><td>2026.06.12 (금)</td><td>12:02</td><td>DREAM</td>
-        <td><span class="requester">이선용 팀장</span></td>
-        <td>평일</td>
-        <td><span class="badge badge-success">예약취소 가능</span></td>
-      </tr>
-      <tr>
-        <td>6</td><td>2026.06.16 (화)</td><td>08:01</td><td>VISION</td>
-        <td><span class="requester">안준영 이사</span></td>
-        <td>평일</td>
-        <td><span class="badge badge-success">예약취소 가능</span></td>
-      </tr>
-      <tr>
-        <td>7</td><td>2026.06.18 (목)</td><td>07:33</td><td>DREAM</td>
-        <td><span class="requester">염지훈 팀장</span></td>
-        <td>평일</td>
-        <td><span class="badge badge-success">예약취소 가능</span></td>
-      </tr>
-      <tr>
-        <td>8</td><td>2026.06.27 (토)</td><td>12:09</td><td>DREAM</td>
-        <td><span class="requester">대표님</span></td>
-        <td><span class="badge badge-warning">주말(토)</span></td>
-        <td><span class="badge badge-danger">단체 취소불가</span></td>
-      </tr>
-      <tr class="planned">
-        <td>P2</td><td>(미정)</td><td>(미정)</td><td>(미정)</td>
-        <td>(미정)</td>
-        <td><span class="badge badge-warning">주말</span></td>
-        <td><span class="badge badge-info">📌 예정 등록 · 1팀</span></td>
-      </tr>
+      <tr class="played"><td>—</td><td>2026.05.06 (수)</td><td>13:33</td><td>-</td><td>-</td><td>평일</td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr class="played"><td>—</td><td>2026.05.07 (목)</td><td>07:40</td><td>-</td><td>-</td><td>평일</td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr class="played"><td>—</td><td>2026.05.08 (금)</td><td>12:09</td><td>-</td><td>-</td><td>평일</td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr class="played"><td>—</td><td>2026.05.16 (토)</td><td>07:33</td><td>-</td><td>-</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr class="played"><td>—</td><td>2026.05.21 (목)</td><td>07:19</td><td>DREAM</td><td>-</td><td>평일</td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr class="played"><td>—</td><td>2026.05.27 (수)</td><td>07:54</td><td>VISION</td><td>-</td><td>평일</td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr class="played"><td>—</td><td>2026.05.28 (목)</td><td>08:01</td><td>DREAM</td><td>-</td><td>평일</td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr><td>1</td><td>2026.05.31 (일)</td><td>07:33</td><td>VISION</td><td>-</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">취소불가</span></td></tr>
+      <tr><td>2</td><td>2026.06.11 (목)</td><td>07:40</td><td>VISION</td><td><span class="requester">대표님</span></td><td>평일</td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
+      <tr><td>3</td><td>2026.06.11 (목)</td><td>07:47</td><td>VISION</td><td><span class="requester">대표님</span></td><td>평일</td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
+      <tr><td>4</td><td>2026.06.12 (금)</td><td>08:08</td><td>VISION</td><td><span class="requester">안준영 이사</span></td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
+      <tr><td>5</td><td>2026.06.12 (금)</td><td>12:02</td><td>DREAM</td><td><span class="requester">이선용 팀장</span></td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
+      <tr><td>6</td><td>2026.06.16 (화)</td><td>08:01</td><td>VISION</td><td><span class="requester">안준영 이사</span></td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
+      <tr><td>7</td><td>2026.06.18 (목)</td><td>07:33</td><td>DREAM</td><td><span class="requester">염지훈 팀장</span></td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
+      <tr><td>8</td><td>2026.06.27 (토)</td><td>12:09</td><td>DREAM</td><td><span class="requester">대표님</span></td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
+      <tr class="planned"><td>P2</td><td>(미정)</td><td>(미정)</td><td>(미정)</td><td>(미정)</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-info">📌 예정 등록</span></td></tr>
     </tbody>
   </table>
-  <div class="note">회색 음영 = 플레이 완료 · 연파랑 음영 = 예정 등록 (아직 사이트 미등록) · P1은 사이트 등록 완료로 일반 예정 행(#9)으로 전환됨</div>
+  <div class="note">회색 = 플레이 완료 · 연파랑 = 예정 등록</div>
 </section>
 
 <footer>
   마론컨트리클럽 · 프론트 041-623-5500 · 예약실 041-623-5555<br>
-  선용님 계정 · 파일: index.html · reservation_history.json · requesters.json · planned.json
+  회사 계정
 </footer>
 
 </div>

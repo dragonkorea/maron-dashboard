@@ -21,8 +21,6 @@
     --info: #1F608A;
     --info-bg: #DEECF6;
     --gold-bg: #FFF8E1;
-    --gold-border: #E5C97F;
-    --muted-bg: #E8E8E0;
     --border: #DDD;
     --text: #1E2D27;
     --muted: #6B7B72;
@@ -54,18 +52,15 @@
   header::before {
     content: '';
     position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 220px;
-    height: 220px;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
     background: radial-gradient(circle, rgba(193, 148, 52, 0.25) 0%, transparent 70%);
     pointer-events: none;
   }
   header::after {
     content: '⛳';
     position: absolute;
-    right: 36px;
-    bottom: 16px;
+    right: 36px; bottom: 16px;
     font-size: 4rem;
     opacity: 0.18;
   }
@@ -81,7 +76,6 @@
     margin-left: 10px;
     vertical-align: middle;
     font-weight: 600;
-    box-shadow: 0 2px 4px rgba(140, 106, 32, 0.3);
   }
   .switch-link {
     display: inline-block;
@@ -92,12 +86,9 @@
     text-decoration: none;
     border-radius: 8px;
     font-size: 0.88rem;
-    transition: background 0.2s;
-    backdrop-filter: blur(4px);
     border: 1px solid rgba(255,255,255,0.25);
     position: relative;
   }
-  .switch-link:hover { background: rgba(255,255,255,0.3); }
   .stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -112,11 +103,6 @@
     border-top: 4px solid var(--primary);
     position: relative;
     overflow: hidden;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(27, 110, 92, 0.14);
   }
   .stat-card::after {
     content: '';
@@ -151,9 +137,6 @@
     margin-bottom: 18px;
     padding-bottom: 10px;
     border-bottom: 2px solid var(--primary-light);
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
   table { width: 100%; border-collapse: collapse; }
   th {
@@ -163,7 +146,6 @@
     font-size: 0.92rem;
     text-align: center;
     font-weight: 600;
-    letter-spacing: 0.3px;
   }
   th:first-child { border-radius: 8px 0 0 0; }
   th:last-child { border-radius: 0 8px 0 0; }
@@ -174,7 +156,6 @@
     font-size: 0.93rem;
   }
   tbody tr:nth-child(even) td { background: #FAFCFB; }
-  tr:hover td { background: var(--primary-light) !important; }
   .badge {
     display: inline-block;
     padding: 4px 11px;
@@ -186,11 +167,6 @@
   .badge-danger { background: var(--danger-bg); color: var(--danger); }
   .badge-warning { background: var(--warning-bg); color: var(--warning); }
   .badge-info { background: var(--info-bg); color: var(--info); }
-  .badge-gold {
-    background: linear-gradient(135deg, var(--accent-light), var(--gold-bg));
-    color: var(--accent-dark);
-    border: 1px solid var(--gold-border);
-  }
   .note {
     font-size: 0.86rem;
     color: var(--muted);
@@ -208,7 +184,6 @@
     font-size: 0.92rem;
     margin-bottom: 18px;
     border-left: 4px solid var(--accent);
-    box-shadow: 0 2px 6px rgba(193, 148, 52, 0.1);
   }
   footer {
     text-align: center;
@@ -217,10 +192,37 @@
     padding: 18px;
   }
   footer .divider {
-    width: 60px;
-    height: 2px;
+    width: 60px; height: 2px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
     margin: 8px auto;
+  }
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .container { max-width: 100%; }
+    header { padding: 22px 18px; border-radius: 12px; }
+    header h1 { font-size: 1.25rem; line-height: 1.35; }
+    header .meta { font-size: 0.78rem; line-height: 1.4; }
+    .account-badge { font-size: 0.7rem; padding: 2px 8px; }
+    header::after { font-size: 2.5rem; right: 20px; bottom: 12px; }
+    .switch-link { padding: 5px 12px; font-size: 0.78rem; margin-top: 10px; }
+    .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-card { padding: 16px; border-radius: 12px; }
+    .stat-card .label { font-size: 0.75rem; }
+    .stat-card .value { font-size: 1.4rem !important; }
+    .stat-card .sub { font-size: 0.72rem; }
+    section { padding: 18px; border-radius: 12px; }
+    section h2 { font-size: 1.02rem; }
+    table { font-size: 0.82rem; }
+    th, td { padding: 8px 5px !important; font-size: 0.78rem !important; }
+    .badge { padding: 2px 8px; font-size: 0.7rem; }
+    .change-note { font-size: 0.82rem; padding: 10px 12px; }
+    .note { font-size: 0.76rem; padding: 10px 12px; }
+    .detail-table th:nth-child(4), .detail-table td:nth-child(4) { display: none; }
+  }
+  @media (max-width: 380px) {
+    .stats { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.1rem; }
+    th, td { padding: 6px 4px !important; font-size: 0.72rem !important; }
   }
 </style>
 </head>
@@ -229,19 +231,19 @@
 
 <header>
   <h1>🏌️ 마론뉴데이CC 예약현황 <span class="account-badge">⭐ 대표님 개인 회원권</span></h1>
-  <div class="meta">한도: 평일 4회 / 주말 2회 (월 기준) · 마지막 업데이트: <span id="updated">2026-05-29 11:35</span></div>
-  <a href="index.html" class="switch-link">→ 선용님 대시보드로 전환</a>
+  <div class="meta">한도: 평일 4회 / 주말 2회 (월 기준) · 마지막 업데이트: 2026-05-29 11:35</div>
+  <a href="index.html" class="switch-link">→ 회사 대시보드로 전환</a>
 </header>
 
 <div class="change-note">
-  📢 오늘(5/29 금) 07:40 DREAM <strong>플레이 완료</strong> · 다음 예약은 6/11(목) 07:54 VISION (단체 취소불가)
+  📢 오늘(5/29 금) 07:40 DREAM 플레이 완료 · 다음 예약은 6/11(목) 07:54 VISION
 </div>
 
 <div class="stats">
   <div class="stat-card">
-    <div class="label">총 예약 (완료+예정)</div>
+    <div class="label">총 예약</div>
     <div class="value">5<span style="font-size:1rem;font-weight:normal;color:var(--muted);">건</span></div>
-    <div class="sub">5월 1건 (완료) · 6월 4건 (예정)</div>
+    <div class="sub">완료 1 · 예정 4</div>
   </div>
   <div class="stat-card gold">
     <div class="label">2026년 5월 잔여</div>
@@ -256,21 +258,16 @@
   <div class="stat-card">
     <div class="label">다음 예약</div>
     <div class="value" style="font-size:1.3rem;">6/11 (목) 07:54</div>
-    <div class="sub">VISION 코스 · D-13 · 단체 취소불가</div>
+    <div class="sub">VISION · D-13 · 단체 취소불가</div>
   </div>
 </div>
 
 <section>
   <h2>📊 월별 예약 한도 (평일 4회 / 주말 2회)</h2>
-  <table>
+  <table class="quota-table">
     <thead>
       <tr>
-        <th>월</th>
-        <th>평일 사용</th>
-        <th>평일 잔여</th>
-        <th>주말 사용</th>
-        <th>주말 잔여</th>
-        <th>비고</th>
+        <th>월</th><th>평일 사용</th><th>평일 잔여</th><th>주말 사용</th><th>주말 잔여</th>
       </tr>
     </thead>
     <tbody>
@@ -280,7 +277,6 @@
         <td><span class="badge badge-success">3회</span></td>
         <td>0 / 2</td>
         <td><span class="badge badge-success">2회</span></td>
-        <td style="text-align:left;">평일·주말 모두 여유 있음</td>
       </tr>
       <tr>
         <td><strong>2026년 6월</strong></td>
@@ -288,61 +284,39 @@
         <td><span class="badge badge-success">2회</span></td>
         <td>2 / 2</td>
         <td><span class="badge badge-danger">0회</span></td>
-        <td style="text-align:left;">주말 한도 소진 (6/27 2팀 등록 완료)</td>
       </tr>
     </tbody>
   </table>
-  <div class="note">※ 주말 = 토·일·공휴일 기준 · 선용님 계정과 한도가 다름(평일 4 vs 7회)</div>
+  <div class="note">※ 주말 = 토·일·공휴일 기준 · 5월은 평일·주말 모두 여유 · 6월은 주말 한도 소진 (6/27 2팀 등록)</div>
 </section>
 
 <section>
   <h2>📋 예약 상세 내역</h2>
-  <table>
+  <table class="detail-table">
     <thead>
       <tr>
-        <th>No</th>
-        <th>예약일</th>
-        <th>예약시간</th>
-        <th>코스</th>
-        <th>구분</th>
-        <th>상태</th>
+        <th>No</th><th>예약일</th><th>예약시간</th><th>코스</th><th>구분</th><th>상태</th>
       </tr>
     </thead>
     <tbody>
       <tr style="background:#F0F0EA;color:var(--muted);">
         <td>—</td><td>2026.05.29 (금)</td><td>07:40</td><td>DREAM</td>
         <td>평일</td>
-        <td><span class="badge badge-info" style="background:#E8E8E0;color:var(--muted);border:1px solid #D0D0C8;">✓ 플레이 완료 (오늘)</span></td>
+        <td><span class="badge" style="background:#E8E8E0;color:var(--muted);">✓ 완료 (오늘)</span></td>
       </tr>
-      <tr>
-        <td>1</td><td>2026.06.11 (목)</td><td>07:54</td><td>VISION</td>
-        <td>평일</td>
-        <td><span class="badge badge-danger">단체 취소불가</span></td>
-      </tr>
-      <tr>
-        <td>2</td><td>2026.06.19 (금)</td><td>07:26</td><td>VISION</td>
-        <td>평일</td>
-        <td><span class="badge badge-success">예약취소 가능</span></td>
-      </tr>
-      <tr>
-        <td>3</td><td>2026.06.27 (토)</td><td>11:55</td><td>DREAM</td>
-        <td><span class="badge badge-warning">주말(토)</span></td>
-        <td><span class="badge badge-danger">단체 취소불가</span></td>
-      </tr>
-      <tr>
-        <td>4</td><td>2026.06.27 (토)</td><td>12:02</td><td>DREAM</td>
-        <td><span class="badge badge-warning">주말(토)</span></td>
-        <td><span class="badge badge-danger">단체 취소불가</span></td>
-      </tr>
+      <tr><td>1</td><td>2026.06.11 (목)</td><td>07:54</td><td>VISION</td><td>평일</td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
+      <tr><td>2</td><td>2026.06.19 (금)</td><td>07:26</td><td>VISION</td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
+      <tr><td>3</td><td>2026.06.27 (토)</td><td>11:55</td><td>DREAM</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
+      <tr><td>4</td><td>2026.06.27 (토)</td><td>12:02</td><td>DREAM</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
     </tbody>
   </table>
-  <div class="note">6/27(토) 2팀 + 선용님 계정 1팀(12:09) = 총 3팀 합동 예약 완료 · 예정 등록 모두 실제 등록 전환 완료 · 파일: 대표님_planned.json (비어있음)</div>
+  <div class="note">6/27(토) 2팀 + 회사 계정 1팀(12:09) = 총 3팀 합동</div>
 </section>
 
 <footer>
   마론컨트리클럽 · 프론트 041-623-5500 · 예약실 041-623-5555
   <div class="divider"></div>
-  ⭐ 대표님 개인 회원권 계정 · 파일: 대표님_index.html · 대표님_planned.json
+  ⭐ 대표님 개인 회원권 계정
 </footer>
 
 </div>

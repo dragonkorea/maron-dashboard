@@ -118,11 +118,14 @@
   .stat-card.warning::after { background: linear-gradient(135deg, transparent 50%, var(--warning-bg) 50%); }
   .stat-card.danger { border-top-color: var(--danger); }
   .stat-card.danger::after { background: linear-gradient(135deg, transparent 50%, var(--danger-bg) 50%); }
+  .stat-card.success { border-top-color: var(--success); }
+  .stat-card.success::after { background: linear-gradient(135deg, transparent 50%, var(--success-bg) 50%); }
   .stat-card .label { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; font-weight: 500; }
   .stat-card .value { font-size: 1.9rem; font-weight: bold; color: var(--primary); position: relative; }
   .stat-card.gold .value { color: var(--accent-dark); }
   .stat-card.warning .value { color: var(--warning); }
   .stat-card.danger .value { color: var(--danger); }
+  .stat-card.success .value { color: var(--success); }
   .stat-card .sub { font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
   section {
     background: white;
@@ -231,34 +234,34 @@
 
 <header>
   <h1>🏌️ 마론뉴데이CC 예약현황 <span class="account-badge">⭐ 대표님 개인 회원권</span></h1>
-  <div class="meta">한도: 평일 4회 / 주말 2회 (월 기준) · 마지막 업데이트: 2026-06-01</div>
+  <div class="meta">한도: 평일 4회 / 주말 2회 (월 기준) · 마지막 업데이트: 2026-06-05</div>
   <a href="index.html" class="switch-link">→ 회사 대시보드로 전환</a>
 </header>
 
 <div class="change-note">
-  📢 5월 마감 (5/29 금 07:40 DREAM 완료) · 6월 예약 4건 대기 · 다음 예약은 6/11(목) 07:54 VISION
+  📢 다음 예약 6/11(목) 07:54 VISION (D-6)
 </div>
 
 <div class="stats">
   <div class="stat-card">
-    <div class="label">총 예약</div>
-    <div class="value">5<span style="font-size:1rem;font-weight:normal;color:var(--muted);">건</span></div>
-    <div class="sub">완료 1 · 예정 4</div>
-  </div>
-  <div class="stat-card gold">
-    <div class="label">2026년 5월 (마감)</div>
-    <div class="value">평일 3 / 주말 2</div>
-    <div class="sub">평일 1/4 · 주말 0/2 · 미사용 잔여</div>
+    <div class="label">총 예약 (표시)</div>
+    <div class="value">4<span style="font-size:1rem;font-weight:normal;color:var(--muted);">건</span></div>
+    <div class="sub">6월 예정 4 · 7월 0</div>
   </div>
   <div class="stat-card danger">
     <div class="label">2026년 6월 잔여</div>
     <div class="value">평일 2 / 주말 0</div>
     <div class="sub">평일 2/4 · 주말 2/2</div>
   </div>
+  <div class="stat-card success">
+    <div class="label">2026년 7월 잔여</div>
+    <div class="value">평일 4 / 주말 2</div>
+    <div class="sub">사용 0/4 · 0/2</div>
+  </div>
   <div class="stat-card">
     <div class="label">다음 예약</div>
     <div class="value" style="font-size:1.3rem;">6/11 (목) 07:54</div>
-    <div class="sub">VISION · D-10 · 단체 취소불가</div>
+    <div class="sub">VISION · D-6 · 단체 취소불가</div>
   </div>
 </div>
 
@@ -272,22 +275,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>2026년 5월</strong></td>
-        <td>1 / 4 <span style="color:var(--muted);font-size:0.78rem;">(완료 1)</span></td>
-        <td><span class="badge badge-success">3회</span></td>
-        <td>0 / 2</td>
-        <td><span class="badge badge-success">2회</span></td>
-      </tr>
-      <tr>
         <td><strong>2026년 6월</strong></td>
         <td>2 / 4</td>
         <td><span class="badge badge-success">2회</span></td>
         <td>2 / 2</td>
         <td><span class="badge badge-danger">0회</span></td>
       </tr>
+      <tr>
+        <td><strong>2026년 7월</strong></td>
+        <td>0 / 4</td>
+        <td><span class="badge badge-success">4회</span></td>
+        <td>0 / 2</td>
+        <td><span class="badge badge-success">2회</span></td>
+      </tr>
     </tbody>
   </table>
-  <div class="note">※ 주말 = 토·일·공휴일 기준 · 5월은 평일·주말 모두 여유 · 6월은 주말 한도 소진 (6/27 2팀 등록)</div>
+  <div class="note">※ 주말 = 토·일·공휴일 기준 · 6월 주말 한도 소진</div>
 </section>
 
 <section>
@@ -299,11 +302,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr style="background:#F0F0EA;color:var(--muted);">
-        <td>—</td><td>2026.05.29 (금)</td><td>07:40</td><td>DREAM</td>
-        <td>평일</td>
-        <td><span class="badge" style="background:#E8E8E0;color:var(--muted);">✓ 완료</span></td>
-      </tr>
       <tr><td>1</td><td>2026.06.11 (목)</td><td>07:54</td><td>VISION</td><td>평일</td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
       <tr><td>2</td><td>2026.06.19 (금)</td><td>07:26</td><td>VISION</td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
       <tr><td>3</td><td>2026.06.27 (토)</td><td>11:55</td><td>DREAM</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>

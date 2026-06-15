@@ -159,6 +159,7 @@
     font-size: 0.93rem;
   }
   tbody tr:nth-child(even) td { background: #FAFCFB; }
+  tbody tr.played td { background: #ECECE0 !important; color: var(--muted); }
   .badge {
     display: inline-block;
     padding: 4px 11px;
@@ -170,6 +171,7 @@
   .badge-danger { background: var(--danger-bg); color: var(--danger); }
   .badge-warning { background: var(--warning-bg); color: var(--warning); }
   .badge-info { background: var(--info-bg); color: var(--info); }
+  .badge-muted { background: #E0E0D6; color: var(--muted); }
   .note {
     font-size: 0.86rem;
     color: var(--muted);
@@ -234,19 +236,19 @@
 
 <header>
   <h1>🏌️ 마론뉴데이CC 예약현황 <span class="account-badge">⭐ 대표님 개인 회원권</span></h1>
-  <div class="meta">한도: 평일 4회 / 주말 2회 (월 기준) · 마지막 업데이트: 2026-06-07</div>
+  <div class="meta">한도: 평일 4회 / 주말 2회 (월 기준) · 마지막 업데이트: 2026-06-15</div>
   <a href="index.html" class="switch-link">→ 회사 대시보드로 전환</a>
 </header>
 
 <div class="change-note">
-  📢 다음 예약 6/11(목) 07:54 VISION (D-6)
+  📢 변동 없음 · 다음 예약 6/19(금) 07:26 VISION (D-4)
 </div>
 
 <div class="stats">
   <div class="stat-card">
     <div class="label">총 예약 (표시)</div>
     <div class="value">4<span style="font-size:1rem;font-weight:normal;color:var(--muted);">건</span></div>
-    <div class="sub">6월 예정 4 · 7월 0</div>
+    <div class="sub">6월 4 (완료 1) · 7월 0</div>
   </div>
   <div class="stat-card danger">
     <div class="label">2026년 6월 잔여</div>
@@ -260,8 +262,8 @@
   </div>
   <div class="stat-card">
     <div class="label">다음 예약</div>
-    <div class="value" style="font-size:1.3rem;">6/11 (목) 07:54</div>
-    <div class="sub">VISION · D-4 · 단체 취소불가</div>
+    <div class="value" style="font-size:1.3rem;">6/19 (금) 07:26</div>
+    <div class="sub">VISION · D-4 · 취소 가능</div>
   </div>
 </div>
 
@@ -276,7 +278,7 @@
     <tbody>
       <tr>
         <td><strong>2026년 6월</strong></td>
-        <td>2 / 4</td>
+        <td>2 / 4 <span style="color:var(--muted);font-size:0.78rem;">(완료 1)</span></td>
         <td><span class="badge badge-success">2회</span></td>
         <td>2 / 2</td>
         <td><span class="badge badge-danger">0회</span></td>
@@ -302,13 +304,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>1</td><td>2026.06.11 (목)</td><td>07:54</td><td>VISION</td><td>평일</td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
-      <tr><td>2</td><td>2026.06.19 (금)</td><td>07:26</td><td>VISION</td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
-      <tr><td>3</td><td>2026.06.27 (토)</td><td>11:55</td><td>DREAM</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
-      <tr><td>4</td><td>2026.06.27 (토)</td><td>12:02</td><td>DREAM</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
+      <tr class="played"><td>—</td><td>2026.06.11 (목)</td><td>07:54</td><td>VISION</td><td>평일</td><td><span class="badge badge-muted">✓ 완료</span></td></tr>
+      <tr><td>1</td><td>2026.06.19 (금)</td><td>07:26</td><td>VISION</td><td>평일</td><td><span class="badge badge-success">취소 가능</span></td></tr>
+      <tr><td>2</td><td>2026.06.27 (토)</td><td>11:55</td><td>DREAM</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
+      <tr><td>3</td><td>2026.06.27 (토)</td><td>12:02</td><td>DREAM</td><td><span class="badge badge-warning">주말</span></td><td><span class="badge badge-danger">단체 취소불가</span></td></tr>
     </tbody>
   </table>
-  <div class="note">6/27(토) 2팀 + 회사 계정 1팀(12:09) = 총 3팀 합동</div>
+  <div class="note">
+    회색 음영 = 완료된 예약 (월 사용량에 포함)<br>
+    6/11(목) 회사 2팀 + 대표님 1팀 = 총 3팀 합동 (완료)<br>
+    6/27(토) 대표님 2팀 + 회사 계정 1팀(12:09) = 총 3팀 합동
+  </div>
 </section>
 
 <footer>
